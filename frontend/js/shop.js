@@ -1,3 +1,5 @@
+import config from './config.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const productsContainer = document.getElementById('productsContainer');
     const loadingSpinner = document.getElementById('loadingSpinner');
@@ -35,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentFilters.sort && currentFilters.sort !== 'newest') params.append('sort', currentFilters.sort);
 
         try {
-            const res = await fetch(`/api/products?${params}`);
+            const res = await fetch(`${config.API_URL}/products?${params}`);
             const data = await res.json();
             if (data.success) {
                 if (data.data.length < limit) {
@@ -49,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 showError('Failed to load products.');
             }
         } catch (err) {
-            showError('Error fetching products.');
+            console.error('Fetch error:', err);
+            showError('Error fetching products. Please try again later.');
         } finally {
             loading = false;
             loadingSpinner.style.display = 'none';
@@ -64,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="product-card card h-100">
                     <div class="product-image-wrapper" style="position:relative;">
                         ${product.badge ? `<span class='product-badge' style='position:absolute;top:16px;left:16px;z-index:2;'>${product.badge}</span>` : ''}
-                        <img src="${product.imageUrl}" class="card-img-top" alt="${product.title}">
+                        <img src="${config.getProductImageUrl(product.imageUrl)}" class="card-img-top" alt="${product.title}">
                     </div>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">${product.title}</h5>
@@ -124,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.onclick = function() { localStorage.removeItem('token'); location.reload(); };
                 // Fetch user info
                 if (userDisplay) {
-                    fetch('/api/auth/me', {
+                    fetch(`${config.API_URL}/auth/me`, {
                         headers: { 'Authorization': 'Bearer ' + token }
                     })
                     .then(res => res.json())
