@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "setup": "npm install && node seedProducts.js && node seedAdmin.js",
+    "setup:start": "npm run setup && npm start",
+    "setup:dev": "npm run setup && npm run dev"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

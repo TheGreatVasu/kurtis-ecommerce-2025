@@ -9,12 +9,18 @@ const errorHandler = require('./middleware/error');
 const path = require('path');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
+const setupDatabase = require('./utils/setupDatabase');
 
 // Load env vars
 dotenv.config({ path: './config/config.env' });
 
 // Connect to database
-connectDB();
+connectDB().then(async () => {
+    // Setup database with initial data if needed
+    await setupDatabase();
+}).catch(err => {
+    console.error('Error during database setup:', err);
+});
 
 // Route files
 const products = require('./routes/productRoutes');
