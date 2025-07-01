@@ -99,4 +99,32 @@ exports.adminMe = asyncHandler(async (req, res, next) => {
         return res.status(403).json({ success: false, error: 'Admin access only' });
     }
     res.json({ success: true, admin: { name: req.user.name, email: req.user.email, role: req.user.role } });
+});
+
+// @desc    Create first admin account (only works if no admin exists)
+// @route   POST /api/auth/create-first-admin
+// @access  Public
+exports.createFirstAdmin = asyncHandler(async (req, res, next) => {
+    // Check if any admin exists
+    const adminExists = await User.findOne({ role: 'admin' });
+    if (adminExists) {
+        return next(new ErrorResponse('Admin account already exists', 400));
+    }
+
+    // Create admin
+    const admin = await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        role: 'admin'
+    });
+
+    // Create token
+    const token = admin.getSignedJwtToken();
+
+    res.status(201).json({
+        success: true,
+        message: 'Admin account created successfully',
+        token
+    });
 }); 

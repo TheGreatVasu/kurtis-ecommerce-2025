@@ -4,12 +4,20 @@ const {
     login,
     getMe,
     adminLogin,
-    adminMe
+    adminMe,
+    forgotPassword,
+    resetPassword,
+    updateDetails,
+    updatePassword,
+    createFirstAdmin
 } = require('../controllers/authController');
 const User = require('../models/User');
 const { protect, admin } = require('../middleware/auth');
 
 const router = express.Router();
+
+// Create first admin (only works if no admin exists)
+router.post('/create-first-admin', createFirstAdmin);
 
 router.post('/register', register);
 router.post('/login', login);
@@ -40,5 +48,10 @@ router.get('/users/summary', protect, admin, async (req, res) => {
         res.status(500).json({ success: false, error: err.message });
     }
 });
+
+router.post('/forgotpassword', forgotPassword);
+router.put('/resetpassword/:resettoken', resetPassword);
+router.put('/updatedetails', protect, updateDetails);
+router.put('/updatepassword', protect, updatePassword);
 
 module.exports = router; 
