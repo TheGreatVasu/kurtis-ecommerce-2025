@@ -47,11 +47,29 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
-// Enable CORS
-app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5001',
-    credentials: true
-}));
+// Enable CORS with specific origin
+const corsOptions = {
+    origin: function (origin, callback) {
+        const allowedOrigins = [
+            'https://kurtis-ecommerce-2025.vercel.app',  // Vercel production
+            'http://localhost:5500',                      // Local frontend
+            'http://localhost:5001',                      // Local backend
+            'http://127.0.0.1:5500'                      // Local frontend alternative
+        ];
+        
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+};
 
 // Set static folders
 app.use('/kurtis-ecommerce-2025/frontend', express.static(path.join(__dirname, '../frontend')));
