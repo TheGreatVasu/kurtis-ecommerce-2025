@@ -10,6 +10,11 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const setupDatabase = require('./utils/setupDatabase');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
 
 // Load env vars
 dotenv.config({ path: './config/config.env' });
@@ -39,37 +44,51 @@ app.use(express.urlencoded({ extended: true }));
 // Cookie parser
 app.use(cookieParser());
 
+// CORS configuration
+app.use(cors({
+    origin: [
+        'http://localhost:5500',
+        'http://127.0.0.1:5500',
+        'https://kurtis-ecommerce-2025.vercel.app',
+        'https://aniyah-backend.onrender.com'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
+
+// Enable pre-flight requests for all routes
+app.options('*', cors());
+
 // File upload
 app.use(fileUpload());
+
+// Sanitize data
+app.use(mongoSanitize());
+
+// Set security headers
+app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false
+}));
+
+// Prevent XSS attacks
+app.use(xss());
+
+// Rate limiting
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 100
+});
+app.use(limiter);
+
+// Prevent http param pollution
+app.use(hpp());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
-
-// Enable CORS with specific origin
-const corsOptions = {
-    origin: function (origin, callback) {
-        const allowedOrigins = [
-            'https://kurtis-ecommerce-2025.vercel.app',  // Vercel production
-            'http://localhost:5500',                      // Local frontend
-            'http://localhost:5001',                      // Local backend
-            'http://127.0.0.1:5500'                      // Local frontend alternative
-        ];
-        
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-};
 
 // Set static folders
 app.use('/kurtis-ecommerce-2025/frontend', express.static(path.join(__dirname, '../frontend')));
