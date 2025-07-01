@@ -9,12 +9,16 @@ const {
     resetPassword,
     updateDetails,
     updatePassword,
-    createFirstAdmin
+    createFirstAdmin,
+    resetAdminForDev
 } = require('../controllers/authController');
 const User = require('../models/User');
 const { protect, admin } = require('../middleware/auth');
 
 const router = express.Router();
+
+// Development only route - will only work if NODE_ENV is development
+router.post('/reset-admin-dev', resetAdminForDev);
 
 // Create first admin (only works if no admin exists)
 router.post('/create-first-admin', createFirstAdmin);

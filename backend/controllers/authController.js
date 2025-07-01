@@ -215,4 +215,38 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
     await user.save();
 
     sendTokenResponse(user, 200, res);
+});
+
+// @desc    Reset admin account (Development only)
+// @route   POST /api/auth/reset-admin-dev
+// @access  Public (but only works in development)
+exports.resetAdminForDev = asyncHandler(async (req, res, next) => {
+    // Only allow in development
+    if (process.env.NODE_ENV !== 'development') {
+        return next(new ErrorResponse('This route is only available in development mode', 400));
+    }
+
+    // Delete all admin users
+    await User.deleteMany({ role: 'admin' });
+
+    // Create new admin
+    const admin = await User.create({
+        name: 'Aniyah Admin',
+        email: 'admin@aniyah.com',
+        password: 'Admin@123456',
+        role: 'admin'
+    });
+
+    // Create token
+    const token = admin.getSignedJwtToken();
+
+    res.status(201).json({
+        success: true,
+        message: 'Admin account reset successfully',
+        token,
+        admin: {
+            name: admin.name,
+            email: admin.email
+        }
+    });
 }); 
