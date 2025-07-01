@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Success | Aniyah</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+      background: #f8f6fa;
+      color: #22223b;
+      min-height: 100vh;
+    }
+    :root {
+      --primary: #e44d6c;
+      --primary-dark: #b8004c;
+      --secondary: #fff0f6;
+      --success: #22c55e;
+      --success-bg: #e6f9ef;
+      --info-bg: #e0f2fe;
+      --accent: #15803d;
+    }
+    .order-success-hero {
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .order-success-left {
+      flex: 1 1 320px;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      animation: fadeInLeft 0.8s;
+    }
+    .order-success-check {
+      width: 70px;
+      height: 70px;
+      background: var(--success-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px 0 rgba(34,197,94,0.13);
+      margin-bottom: 1.2rem;
+      font-size: 2.7rem;
+      color: var(--success);
+    }
+    .order-success-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #22c55e 60%, #15803d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      margin-bottom: 1.1rem;
+      letter-spacing: 0.01em;
+      text-shadow: 0 2px 8px rgba(34,197,94,0.08);
+    }
+    .order-success-info-card {
+      background: #eaf6ff;
+      color: #0369a1;
+      border-radius: 1.2rem;
+      padding: 1.3rem 2rem 1.3rem 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.13rem;
+      font-weight: 500;
+      box-shadow: 0 2px 12px 0 rgba(34,197,94,0.07);
+      min-width: 270px;
+      max-width: 420px;
+      border-left: 6px solid #22c55e;
+      animation: fadeInLeft 1.2s;
+    }
+    .order-success-right {
+      flex: 1 1 340px;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      animation: fadeInRight 0.8s;
+    }
+    .order-success-card {
+      background: #fff;
+      border-radius: 1.3rem;
+      box-shadow: 0 6px 32px 0 rgba(34,197,94,0.10);
+      padding: 2.2rem 2rem 1.5rem 2rem;
+      margin-bottom: 2rem;
+      text-align: left;
+      width: 100%;
+      border-left: 6px solid var(--primary);
+      min-width: 270px;
+      max-width: 480px;
+      position: relative;
+    }
+    .order-success-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.7rem;
+    }
+    .order-success-card .order-id-link {
+      color: #2563eb;
+      text-decoration: underline;
+      word-break: break-all;
+      cursor: pointer;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+    }
+    .order-success-card .order-id-link i {
+      font-size: 1.1em;
+      color: #15803d;
+      margin-left: 0.2em;
+    }
+    .order-success-card .badge {
+      font-size: 1em;
+      padding: 0.4em 1em;
+      border-radius: 1em;
+      font-weight: 600;
+      background: linear-gradient(90deg, #22c55e 60%, #15803d 100%);
+      color: #fff;
+      box-shadow: 0 2px 8px 0 rgba(34,197,94,0.10);
+      margin-left: 0.5em;
+    }
+    .order-success-card ul {
+      padding-left: 1.2em;
+      margin-bottom: 1.2em;
+    }
+    .order-success-card li {
+      margin-bottom: 0.3em;
+      font-size: 1.05em;
+    }
+    .order-success-card .fw-bold {
+      color: var(--primary-dark);
+    }
+    .btn-modern {
+      background: linear-gradient(90deg, #e44d6c 60%, #b8004c 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 1.1rem;
+      padding: 1rem 3.2rem;
+      box-shadow: 0 4px 18px 0 rgba(228,77,108,0.13);
+      transition: background 0.2s, box-shadow 0.2s, transform 0.18s;
+      margin-top: 0.5rem;
+    }
+    .btn-modern:hover, .btn-modern:focus {
+      background: linear-gradient(90deg, #b8004c 60%, #e44d6c 100%);
+      color: #fff;
+      box-shadow: 0 8px 24px 0 rgba(228,77,108,0.18);
+      transform: translateY(-3px) scale(1.04);
+    }
+    @media (max-width: 991px) {
+      .order-success-hero {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: stretch;
+      }
+      .order-success-left, .order-success-right {
+        max-width: 100%;
+        align-items: stretch;
+      }
+      .order-success-info-card, .order-success-card {
+        max-width: 100%;
+      }
+    }
+    @media (max-width: 600px) {
+      .order-success-title {
+        font-size: 1.5rem;
+      }
+      .order-success-check {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+      }
+      .order-success-info-card, .order-success-card {
+        padding: 1.1rem 1rem 1.1rem 1rem;
+      }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .payment-icons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .payment-icons img {
+      width: 38px;
+      height: 24px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 4px;
+      padding: 2px 4px;
+      margin-bottom: 4px;
+    }
+    .top-banner {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 500;
+      overflow: hidden;
+      position: relative;
+      width: 100vw;
+      min-height: 38px;
+    }
+    .top-banner .marquee {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee 18s linear infinite;
+      min-width: 200vw;
+      line-height: 38px;
+      font-size: 1.08rem;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Notification Banner -->
+  <div class="top-banner py-2">
+    <div class="marquee"><span class="mx-4">✨ 20% OFF on all Kurtis!</span><span class="mx-4">🚚 Free Shipping on orders over ₹999</span><span class="mx-4">🆕 New Arrivals: Summer 2025 Collection</span><span class="mx-4">💃 Shop the latest trends now!</span><span class="mx-4">✨ 20% OFF on all Kurtis!</span><span class="mx-4">🚚 Free Shipping on orders over ₹999</span><span class="mx-4">🆕 New Arrivals: Summer 2025 Collection</span><span class="mx-4">💃 Shop the latest trends now!</span><span class="mx-4">✨ 20% OFF on all Kurtis!</span><span class="mx-4">🚚 Free Shipping on orders over ₹999</span><span class="mx-4">🆕 New Arrivals: Summer 2025 Collection</span><span class="mx-4">💃 Shop the latest trends now!</span></div>
+  </div>
+  <!-- Navbar (copied from index.html) -->
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html" style="font-size:1.6rem;">
+        <span style="font-weight:700; color: var(--primary);">Aniyah</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center gap-2">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="collections.html">Collections</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+          <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+          <li class="nav-item"><span class="nav-link" id="userDisplay"></span></li>
+          <li class="nav-item"><button id="loginBtn" class="btn btn-primary btn-sm">Login</button></li>
+          <li class="nav-item"><button id="logoutBtn" class="btn btn-primary btn-sm" style="display:none;">Logout</button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Main Content -->
+  <main class="container py-5">
+    <div class="order-success-hero">
+      <!-- Left: Thank You -->
+      <div class="order-success-left">
+        <div class="order-success-check"><i class="bi bi-check-circle"></i></div>
+        <div class="order-success-title">Thank You for Your Order!</div>
+        <div class="order-success-info-card">
+          <strong>Your order has been placed successfully.</strong><br>
+          Our team will contact you soon for your address and shipping details.<br>
+          A confirmation email with your bill has been sent to your email address.
+        </div>
+      </div>
+      <!-- Right: Order Summary -->
+      <div class="order-success-right">
+        <div id="orderSummary" class="w-100"></div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12 d-flex justify-content-center">
+        <a href="shop.html" class="btn btn-modern mt-2">Continue Shopping</a>
+      </div>
+    </div>
+  </main>
+  <!-- Footer (copied from index.html) -->
+  <footer class="footer pt-5 pb-3 mt-5" style="background: var(--primary-dark); color: #fff;">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-3">
+          <h5>About Aniyah</h5>
+          <p>Modern, stylish, and timeless kurtis for every woman. Discover the best of Indian fashion with us.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Contact Info</h5>
+          <ul class="list-unstyled">
+            <li>Email: info.aniyah@gmail.com</li>
+            <li>Phone: +91 78599 35486</li>
+            <li>Support: 9am – 7pm IST</li>
+          </ul>
+          <form class="d-flex mt-2">
+            <input type="email" class="form-control me-2" placeholder="Your email">
+            <button class="btn btn-primary" type="submit">Subscribe</button>
+          </form>
+        </div>
+        <div class="col-md-3">
+          <h5>Follow Us</h5>
+          <div class="d-flex gap-3 mb-2">
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Whatsapp"><i class="bi bi-whatsapp"></i></a>
+          </div>
+          <div class="payment-icons d-flex gap-2">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/RuPay_Logo.png" alt="RuPay">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/UPI-Logo-vector.svg" alt="UPI">
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4" style="color:#fff0f6; font-size:0.95rem;">&copy; 2025 Aniyah. All rights reserved.</div>
+    </div>
+  </footer>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/order-success.js"></script>
+  <script>
+    function updateLoginLogoutButtons() {
+      const token = localStorage.getItem('token');
+      const loginBtn = document.getElementById('loginBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const userDisplay = document.getElementById('userDisplay');
+      let userName = localStorage.getItem('userName');
+      if (token) {
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = '';
+        if (!userName) {
+          fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success && data.data && data.data.name) {
+                userName = data.data.name;
+                localStorage.setItem('userName', userName);
+                if (userDisplay) userDisplay.textContent = 'Hello, ' + userName;
+              } else {
+                if (userDisplay) userDisplay.textContent = 'Hello, User';
+              }
+            })
+            .catch(() => { if (userDisplay) userDisplay.textContent = 'Hello, User'; });
+        } else {
+          if (userDisplay) userDisplay.textContent = 'Hello, ' + userName;
+        }
+      } else {
+        loginBtn.style.display = '';
+        logoutBtn.style.display = 'none';
+        if (userDisplay) userDisplay.textContent = '';
+        localStorage.removeItem('userName');
+      }
+    }
+    document.getElementById('loginBtn').onclick = function() {
+      window.location.href = 'login.html';
+    };
+    document.getElementById('logoutBtn').onclick = function() {
+      localStorage.clear();
+      sessionStorage.clear();
+      updateLoginLogoutButtons();
+      window.location.href = 'login.html';
+    };
+    document.addEventListener('DOMContentLoaded', updateLoginLogoutButtons);
+  </script>
+</body>
+</html> 

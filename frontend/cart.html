@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | Aniyah</title>
+    <meta name="description" content="View and manage your shopping cart at Aniyah. Secure checkout, easy updates, and beautiful kurtis. Shop the best women's kurtis online.">
+    <meta name="keywords" content="cart, shopping cart, kurtis, women's kurtis, ethnic wear, Indian fashion, online shopping, designer kurtis, Aniyah, trendy kurtis, checkout, buy kurtis online, women's clothing, ethnic outfits, modern kurtis, stylish kurtis, best kurtis India, premium kurtis, eco-friendly fashion, Aniyah store">
+    <meta property="og:title" content="Cart | Aniyah">
+    <meta property="og:description" content="View and manage your shopping cart at Aniyah. Secure checkout, easy updates, and beautiful kurtis. Shop the best women's kurtis online.">
+    <meta property="og:image" content="img/aniyah-logo.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aniyah.in/cart">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cart | Aniyah">
+    <meta name="twitter:description" content="View and manage your shopping cart at Aniyah. Secure checkout, easy updates, and beautiful kurtis. Shop the best women's kurtis online.">
+    <meta name="twitter:image" content="img/aniyah-logo.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { font-family: 'Playfair Display', serif; background: #f8f6fa; color: #22223b; }
+        :root {
+            --primary: #e44d6c;
+            --primary-dark: #b8004c;
+            --secondary: #fff0f6;
+        }
+        /* Navbar Styles */
+        .navbar {
+            padding: 1rem 0;
+            background: #fff !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand { 
+            color: var(--primary) !important; 
+            font-weight: 700; 
+            font-size: 1.6rem; 
+            letter-spacing: 0.05em; 
+            font-family: 'Playfair Display', serif;
+            margin-right: 0;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        .navbar-toggler {
+            padding: 0.5rem;
+            border: none;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+        }
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        .nav-link {
+            color: #22223b;
+            font-weight: 500;
+            padding: 0.75rem 0;
+            margin: 0 1rem;
+            transition: color 0.3s;
+            position: relative;
+            text-align: center;
+        }
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        .nav-link.active {
+            color: var(--primary);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 1px;
+            background-color: var(--primary);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+        .nav-link.active::after {
+            width: 80%;
+        }
+        .nav-link:hover::after {
+            width: 0;
+        }
+        .navbar .btn-primary {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            border-radius: 25px;
+            background: var(--primary);
+            border-color: var(--primary);
+            margin: 0 auto;
+            display: block;
+        }
+        .navbar .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        .navbar-collapse {
+            justify-content: center;
+        }
+        .navbar-nav {
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .nav-item {
+            text-align: center;
+        }
+        
+        @media (max-width: 991.98px) {
+            .navbar-brand {
+                width: auto;
+                text-align: left;
+            }
+            .navbar-collapse {
+                background: #fff;
+                padding: 1rem;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+            .navbar-nav {
+                gap: 0.5rem;
+            }
+            .nav-item {
+                width: 100%;
+                text-align: center;
+            }
+            .nav-link {
+                padding: 0.75rem 0;
+                display: block;
+                text-align: center;
+            }
+            .nav-link.active::after {
+                width: 40%;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .navbar .btn-primary {
+                width: 200px;
+                margin: 0.5rem auto;
+            }
+        }
+        .btn-primary, .btn-primary:focus { background: var(--primary); border-color: var(--primary); }
+        .btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+        img, .img-fluid { object-fit: cover; width: 100%; height: auto; border-radius: 1rem; }
+        .section-title { color: var(--primary); font-weight: 700; margin-bottom: 2rem; }
+        .footer { background: var(--primary-dark); color: #fff; }
+        .footer a { color: #fff0f6; text-decoration: none; }
+        .footer a:hover { color: #ffb6c1; }
+        .top-banner { background: var(--primary); color: #fff; font-weight: 500; overflow: hidden; position: relative; }
+        .top-banner .marquee { display: flex; white-space: nowrap; animation: marquee 18s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    </style>
+</head>
+<body>
+    <!-- Top Notification Banner -->
+    <div class="top-banner py-2" style="background: #e44d6c; color: #fff; font-weight: 500;">
+        <div class="marquee d-flex" style="white-space: nowrap; animation: marquee 18s linear infinite;">
+            <span class="mx-4">✨ 20% OFF on all Kurtis!</span>
+            <span class="mx-4">🚚 Free Shipping on orders over ₹999</span>
+            <span class="mx-4">🆕 New Arrivals: Summer 2025 Collection</span>
+            <span class="mx-4">💃 Shop the latest trends now!</span>
+        </div>
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span>Aniyah</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="collections.html">Collections</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="cart.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+                    <li class="nav-item"><span class="nav-link" id="userDisplay"></span></li>
+                    <li class="nav-item"><button id="loginBtn" class="btn btn-primary btn-sm">Login</button></li>
+                    <li class="nav-item"><button id="logoutBtn" class="btn btn-primary btn-sm" style="display:none;">Logout</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Cart Section -->
+    <section class="cart-section py-5">
+        <div class="container">
+            <h1 class="section-title mb-4">Shopping Cart</h1>
+            <!-- Empty Cart Message -->
+            <div id="emptyCartMessage" class="text-center py-5" style="display: none;">
+                <h3>Your cart is empty</h3>
+                <p class="text-muted">Add some beautiful kurtis to your cart!</p>
+                <a href="shop.html" class="btn btn-primary mt-3">Continue Shopping</a>
+            </div>
+            <!-- Cart Content -->
+            <div id="cartContent">
+                <div class="row">
+                    <!-- Cart Items List -->
+                    <div class="col-lg-8">
+                        <div class="cart-items" id="cartItems">
+                            <!-- Cart items will be dynamically added here -->
+                        </div>
+                    </div>
+                    <!-- Cart Summary -->
+                    <div class="col-lg-4">
+                        <div class="cart-summary">
+                            <h4 class="mb-4">Order Summary</h4>
+                            <div class="summary-item d-flex justify-content-between mb-2">
+                                <span>Subtotal</span>
+                                <span id="subtotal">₹0</span>
+                            </div>
+                            <div class="summary-item d-flex justify-content-between mb-2">
+                                <span>Shipping</span>
+                                <span id="shipping">₹0</span>
+                            </div>
+                            <div class="summary-item d-flex justify-content-between mb-4">
+                                <span>Tax (18% GST)</span>
+                                <span id="tax">₹0</span>
+                            </div>
+                            <div class="total-amount d-flex justify-content-between mb-4">
+                                <strong>Total</strong>
+                                <strong id="total">₹0</strong>
+                            </div>
+                            <!-- Coupon Code -->
+                            <div class="coupon-section mb-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="couponCode" placeholder="Enter coupon code">
+                                    <button class="btn btn-outline-primary" type="button" id="applyCoupon">Apply</button>
+                                </div>
+                            </div>
+                            <!-- Checkout Button -->
+                            <a href="checkout.html" class="btn btn-primary w-100 mb-3" id="checkoutBtn">Proceed to Checkout</a>
+                            <!-- Continue Shopping -->
+                            <a href="shop.html" class="btn btn-outline-primary w-100">Continue Shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer pt-5 pb-3 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <h5>About Aniyah</h5>
+                    <p>Modern, stylish, and timeless kurtis for every woman. Discover the best of Indian fashion with us.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="checkout.html">Checkout</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: info.aniyah@gmail.com</li>
+                        <li>Phone: +91 78599 35486</li>
+                        <li>Support: 9am – 7pm IST</li>
+                    </ul>
+                    <form class="d-flex mt-2">
+                        <input type="email" class="form-control me-2" placeholder="Your email">
+                        <button class="btn btn-primary" type="submit">Subscribe</button>
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <h5>Follow Us</h5>
+                    <div class="d-flex gap-3 mb-2">
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Whatsapp"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                    <div class="payment-icons d-flex gap-2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" style="width:38px;height:24px;object-fit:contain;background:#fff;border-radius:4px;padding:2px 4px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" style="width:38px;height:24px;object-fit:contain;background:#fff;border-radius:4px;padding:2px 4px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/RuPay_Logo.png" alt="RuPay" style="width:38px;height:24px;object-fit:contain;background:#fff;border-radius:4px;padding:2px 4px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/UPI-Logo-vector.svg" alt="UPI" style="width:38px;height:24px;object-fit:contain;background:#fff;border-radius:4px;padding:2px 4px;">
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4" style="color:#fff0f6; font-size:0.95rem;">&copy; 2025 Aniyah. All rights reserved.</div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+    function updateLoginLogoutButtons() {
+      const token = localStorage.getItem('token');
+      const loginBtn = document.getElementById('loginBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const userDisplay = document.getElementById('userDisplay');
+      let userName = localStorage.getItem('userName');
+      if (token) {
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = '';
+        if (!userName) {
+          fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success && data.data && data.data.name) {
+                userName = data.data.name;
+                localStorage.setItem('userName', userName);
+                if (userDisplay) userDisplay.textContent = 'Hello, ' + userName;
+              } else {
+                if (userDisplay) userDisplay.textContent = 'Hello, User';
+              }
+            })
+            .catch(() => { if (userDisplay) userDisplay.textContent = 'Hello, User'; });
+        } else {
+          if (userDisplay) userDisplay.textContent = 'Hello, ' + userName;
+        }
+      } else {
+        loginBtn.style.display = '';
+        logoutBtn.style.display = 'none';
+        if (userDisplay) userDisplay.textContent = '';
+        localStorage.removeItem('userName');
+      }
+    }
+    document.getElementById('loginBtn').onclick = function() {
+      window.location.href = 'login.html';
+    };
+    document.getElementById('logoutBtn').onclick = function() {
+      localStorage.clear();
+      sessionStorage.clear();
+      updateLoginLogoutButtons();
+      window.location.href = 'login.html';
+    };
+    document.addEventListener('DOMContentLoaded', updateLoginLogoutButtons);
+    </script>
+</body>
+</html> 

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniyah | Shop Trendy Women's Kurtis Online</title>
+    <meta name="description" content="Browse and shop the latest, most stylish kurtis for women at Aniyah. Filter by category, price, size, and more. Free shipping & easy returns!">
+    <meta name="keywords" content="kurtis, women's kurtis, ethnic wear, Indian fashion, online shopping, designer kurtis, Aniyah, trendy kurtis, cotton kurtis, party wear, summer collection, buy kurtis online, women's clothing, ethnic outfits, modern kurtis, stylish kurtis, best kurtis India, premium kurtis, eco-friendly fashion, Aniyah store">
+    <meta property="og:title" content="Aniyah | Shop Trendy Women's Kurtis Online">
+    <meta property="og:description" content="Browse and shop the latest, most stylish kurtis for women at Aniyah. Filter by category, price, size, and more. Free shipping & easy returns!">
+    <meta property="og:image" content="https://svgshare.com/i/13rG.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aniyah.com/shop">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Aniyah | Shop Trendy Women's Kurtis Online">
+    <meta name="twitter:description" content="Browse and shop the latest, most stylish kurtis for women at Aniyah. Filter by category, price, size, and more. Free shipping & easy returns!">
+    <meta name="twitter:image" content="https://svgshare.com/i/13rG.svg">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Space Grotesk -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Pacifico -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            background: #f8f6fa;
+            color: #22223b;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        :root {
+            --primary: #e44d6c;
+            --primary-dark: #b8004c;
+            --secondary: #fff0f6;
+        }
+        .top-banner {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 500;
+            overflow: hidden;
+            position: relative;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .top-banner .marquee {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 18s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .navbar-brand {
+            color: var(--primary) !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            font-family: 'Playfair Display', serif;
+        }
+        .btn-primary, .btn-primary:focus {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        .section-title {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .filter-bar {
+            padding: 1rem;
+            background: #fff;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .filter-bar .form-select {
+            background: #fff;
+            border-radius: 0.5rem;
+            border: 1px solid #e44d6c33;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .product-card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 4px 16px rgba(228,77,108,0.10);
+            background: #fff0f6;
+            transition: box-shadow 0.3s, transform 0.3s;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-image-wrapper {
+            width: 100%;
+            padding-top: 125%; /* 4:5 aspect ratio */
+            position: relative;
+            background: transparent;
+            overflow: hidden;
+        }
+        .product-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: transparent;
+        }
+        .product-badge {
+            position: absolute;
+            top: 0.8rem;
+            left: 0.8rem;
+            background: linear-gradient(90deg, var(--primary) 60%, var(--primary-dark) 100%);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.25em 0.8em;
+            border-radius: 2rem;
+            z-index: 2;
+        }
+        .card-body {
+            padding: 1rem;
+        }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        .card-text {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+        }
+        .btn-primary.mt-auto {
+            border-radius: 0.9rem;
+            font-weight: 700;
+            font-size: 1.08rem;
+            letter-spacing: 0.02em;
+            background: #e44d6c;
+            border: none;
+            box-shadow: 0 2px 8px 0 rgba(228,77,108,0.10);
+            margin-top: 1.2rem;
+        }
+        .btn-primary.mt-auto:hover {
+            background: #b8004c;
+        }
+        @media (min-width: 576px) {
+            .navbar-brand {
+                font-size: 1.8rem;
+            }
+            .filter-bar {
+                padding: 1.5rem;
+            }
+            .filter-bar .form-select {
+                margin-bottom: 0;
+            }
+            .product-card {
+                margin-bottom: 2rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .card-text {
+                font-size: 1rem;
+            }
+            .product-badge {
+                font-size: 0.9rem;
+            }
+        }
+        @media (min-width: 768px) {
+            .product-card:hover {
+                box-shadow: 0 16px 48px 0 rgba(228,77,108,0.18);
+                transform: translateY(-5px);
+            }
+            .navbar-brand {
+                font-size: 2rem;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+            .btn-primary {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+        @media (min-width: 992px) {
+            .filter-bar {
+                margin: 2rem 0;
+            }
+            .product-badge {
+                font-size: 1rem;
+                padding: 0.35em 1.1em;
+            }
+            .card-title {
+                font-size: 1.18rem;
+            }
+        }
+        .footer {
+            background: var(--primary-dark);
+            color: #fff;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        .footer a {
+            color: #fff0f6;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        .footer a:hover {
+            color: #ffb6c1;
+        }
+        .footer .bi {
+            font-size: 1.25rem;
+            margin-right: 0.5rem;
+        }
+        .payment-icons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .payment-icons img {
+            width: 38px;
+            height: 24px;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 4px;
+            padding: 2px 4px;
+        }
+        .img-fluid, img {
+            object-fit: contain;
+            width: 100%;
+            height: auto;
+            border-radius: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Notification Banner -->
+    <div class="top-banner py-2">
+        <div class="marquee">
+            <span class="mx-4">✨ 20% OFF on all Kurtis!</span>
+            <span class="mx-4">🚚 Free Shipping on orders over ₹999</span>
+            <span class="mx-4">🆕 New Arrivals: Summer 2025 Collection</span>
+            <span class="mx-4">💃 Shop the latest trends now!</span>
+            <span class="mx-4">✨ 20% OFF on all Kurtis!</span>
+            <span class="mx-4">🚚 Free Shipping on orders over ₹999</span>
+            <span class="mx-4">✨ 20% OFF on all Kurtis!</span>
+            <span class="mx-4">🚚 Free Shipping on orders over ₹999</span>
+            <span class="mx-4">🆕 New Arrivals: Summer 2025 Collection</span>
+            <span class="mx-4">💃 Shop the latest trends now!</span>
+            <span class="mx-4">✨ 20% OFF on all Kurtis!</span>
+            <span class="mx-4">🚚 Free Shipping on orders over ₹999</span>
+        </div>
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html" style="font-size:1.6rem;">
+                 <span style="font-weight:700;">Aniyah</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="collections.html">Collections</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+                    <li class="nav-item"><span class="nav-link" id="userDisplay"></span></li>
+                    <li class="nav-item"><button id="loginBtn" class="btn btn-primary btn-sm">Login</button></li>
+                    <li class="nav-item"><button id="logoutBtn" class="btn btn-primary btn-sm" style="display:none;">Logout</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Modern Hero Banner -->
+    <section class="shop-hero-section py-5 mb-4" style="background: linear-gradient(90deg, #fff0f6 0%, #f8f6fa 100%); border-radius: 2rem; box-shadow: 0 4px 32px 0 rgba(228,77,108,0.07);">
+      <div class="container">
+        <div class="row align-items-center flex-column-reverse flex-lg-row">
+          <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-4 fw-bold mb-3" style="color: #e44d6c;">Shop the Latest Kurtis at Aniyah</h1>
+            <p class="lead mb-4" style="color: #b8004c;">Discover 2026's most stylish, comfortable, and sustainable kurtis. Filter by style, price, or size. Free shipping, easy returns, and new arrivals every week!</p>
+            <a href="#productsContainer" class="btn btn-primary btn-lg px-5">Browse Collection</a>
+          </div>
+          <div class="col-lg-5 mb-4 mb-lg-0 d-flex justify-content-center align-items-center">
+            <img src="img/aniyah-logo.jpg" alt="Aniyah Kurtis 2026 Collection" class="img-fluid" style="max-width: 320px; border-radius: 1.5rem; box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07); background: #fff;">
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Sticky Filter Bar -->
+    <div class="container position-sticky top-0 z-2" style="background: #fff6fa; border-radius: 1rem; box-shadow: 0 2px 12px 0 rgba(228,77,108,0.04); margin-bottom: 2rem;">
+      <form class="row filter-bar py-3 px-2 justify-content-center align-items-center g-2" id="shopFilters" role="search" aria-label="Product Filters">
+        <div class="col-6 col-md-3">
+          <select class="form-select rounded-pill" id="categoryFilter">
+            <option value="">All Categories</option>
+            <option value="Casual">Casual</option>
+            <option value="Party Wear">Party Wear</option>
+            <option value="Traditional">Traditional</option>
+            <option value="Designer">Designer</option>
+            <option value="Cotton">Cotton</option>
+            <option value="Silk">Silk</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-3">
+          <select class="form-select rounded-pill" id="priceFilter">
+            <option value="">Price Range</option>
+            <option value="0-1000">Under ₹1,000</option>
+            <option value="1000-2000">₹1,000 - ₹2,000</option>
+            <option value="2000-3000">₹2,000 - ₹3,000</option>
+            <option value="3000+">Above ₹3,000</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-3">
+          <select class="form-select rounded-pill" id="sizeFilter">
+            <option value="">Size</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-3">
+          <select class="form-select rounded-pill" id="sortFilter">
+            <option value="newest">Newest First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <!-- Modern Product Grid -->
+    <main class="container" id="productsContainer" aria-live="polite">
+      <div class="row g-4" id="productsGrid">
+        <!-- Product cards will be loaded here by JS -->
+      </div>
+      <!-- Loading Spinner -->
+      <div id="loadingSpinner" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <!-- Load More Button -->
+      <div class="text-center mt-5">
+        <button class="btn btn-primary btn-lg px-5 rounded-pill" id="loadMoreBtn">Load More</button>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer class="footer pt-5 pb-3 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <h5>About Aniyah</h5>
+                    <p>Modern, stylish, and timeless kurtis for every woman. Discover the best of Indian fashion with us.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="checkout.html">Checkout</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: info.aniyah@gmail.com</li>
+                        <li>Phone: +91 78599 35486</li>
+                        <li>Support: 9am – 7pm IST</li>
+                    </ul>
+                    <form class="d-flex mt-2">
+                        <input type="email" class="form-control me-2" placeholder="Your email">
+                        <button class="btn btn-primary" type="submit">Subscribe</button>
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <h5>Follow Us</h5>
+                    <div class="d-flex gap-3 mb-2">
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Whatsapp"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                    <div class="payment-icons d-flex gap-2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/RuPay_Logo.png" alt="RuPay">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/UPI-Logo-vector.svg" alt="UPI">
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4" style="color:#fff0f6; font-size:0.95rem;">&copy; 2025 Aniyah. All rights reserved.</div>
+        </div>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/shop.js"></script>
+    <script>
+    function updateLoginLogoutButtons() {
+      const token = localStorage.getItem('token');
+      const loginBtn = document.getElementById('loginBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const userDisplay = document.getElementById('userDisplay');
+      let userName = localStorage.getItem('userName');
+      if (token) {
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = '';
+        if (!userName) {
+          fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + token } })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success && data.data && data.data.name) {
+                userName = data.data.name;
+                localStorage.setItem('userName', userName);
+                if (userDisplay) userDisplay.textContent = 'Hello, ' + userName;
+              } else {
+                if (userDisplay) userDisplay.textContent = 'Hello, User';
+              }
+            })
+            .catch(() => { if (userDisplay) userDisplay.textContent = 'Hello, User'; });
+        } else {
+          if (userDisplay) userDisplay.textContent = 'Hello, ' + userName;
+        }
+      } else {
+        loginBtn.style.display = '';
+        logoutBtn.style.display = 'none';
+        if (userDisplay) userDisplay.textContent = '';
+        localStorage.removeItem('userName');
+      }
+    }
+    document.getElementById('loginBtn').onclick = function() {
+      window.location.href = 'login.html';
+    };
+    document.getElementById('logoutBtn').onclick = function() {
+      localStorage.clear();
+      sessionStorage.clear();
+      updateLoginLogoutButtons();
+      window.location.href = 'login.html';
+    };
+    document.addEventListener('DOMContentLoaded', updateLoginLogoutButtons);
+    </script>
+</body>
+</html> 
