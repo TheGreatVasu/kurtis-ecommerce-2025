@@ -1,4 +1,5 @@
 // Modern Admin Panel JS
+import config from './config.js';
 const API = 'http://localhost:5001/api';
 const adminContent = document.getElementById('adminContent');
 const adminNav = document.getElementById('adminNav');
@@ -495,4 +496,37 @@ if (adminToken) {
   fetchAdminProfile();
     } else {
   showLogin();
-} 
+}
+
+// Seed Products
+document.getElementById('seedProductsBtn').addEventListener('click', async () => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('Please login first');
+            return;
+        }
+
+        const confirmed = confirm('This will delete all existing products and seed new ones. Are you sure?');
+        if (!confirmed) return;
+
+        const response = await fetch(`${config.API_URL}/products/seed`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+            alert(`Successfully seeded ${data.count} products!`);
+            location.reload();
+        } else {
+            alert('Failed to seed products: ' + data.error);
+        }
+    } catch (error) {
+        console.error('Error seeding products:', error);
+        alert('Error seeding products. Please try again.');
+    }
+}); 

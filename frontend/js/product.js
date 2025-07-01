@@ -184,4 +184,62 @@ document.addEventListener("DOMContentLoaded", function() {
             if (spinner) spinner.style.display = "none";
             if (productContainer) productContainer.innerHTML = "<div class='alert alert-danger'>Product not found or an error occurred.</div>";
         });
-}); 
+});
+
+import config from './config.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Load top selling products
+    loadTopSellingProducts();
+});
+
+async function loadTopSellingProducts() {
+    const topSellingSection = document.querySelector('.top-selling-section');
+    if (!topSellingSection) return;
+
+    try {
+        const response = await fetch(`${config.API_URL}/products?limit=4&sort=-rating`);
+        const data = await response.json();
+
+        if (data.success && data.data.length > 0) {
+            const productsHTML = data.data.map(product => `
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="product-card card h-100">
+                        <div class="product-image-wrapper">
+                            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                            <img src="${config.getProductImageUrl(product.imageUrl)}" 
+                                 class="card-img-top" 
+                                 alt="${product.title}"
+                                 onerror="this.src='img/placeholder.jpg'">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">${product.title}</h5>
+                            <p class="card-text text-primary">₹${product.price.toFixed(2)}</p>
+                            <p class="card-text"><small>${product.category}</small></p>
+                            <a href="product.html?id=${product._id}" class="btn btn-primary mt-auto">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            topSellingSection.innerHTML = `
+                <h2 class="section-title">Top Selling Kurtis</h2>
+                <div class="row">${productsHTML}</div>
+                <div class="text-center mt-4">
+                    <a href="shop.html" class="btn btn-primary">View More</a>
+                </div>
+            `;
+        } else {
+            throw new Error('No products found');
+        }
+    } catch (error) {
+        console.error('Error loading products:', error);
+        topSellingSection.innerHTML = `
+            <h2 class="section-title">Top Selling Kurtis</h2>
+            <div class="alert alert-danger">Error loading products.</div>
+            <div class="text-center mt-4">
+                <a href="shop.html" class="btn btn-primary">View More</a>
+            </div>
+        `;
+    }
+} 

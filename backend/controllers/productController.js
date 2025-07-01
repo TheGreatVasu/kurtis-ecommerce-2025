@@ -3,6 +3,7 @@ const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const path = require('path');
 const fs = require('fs');
+const mockProducts = require('../mockProducts');
 
 // @desc    Get all products
 // @route   GET /api/products
@@ -208,4 +209,47 @@ exports.uploadProductImage = asyncHandler(async (req, res, next) => {
             data: `/uploads/products/${filename}`
         });
     });
+});
+
+// @desc    Seed products
+// @route   POST /api/products/seed
+// @access  Private (Admin)
+exports.seedProducts = asyncHandler(async (req, res, next) => {
+    try {
+        // Delete existing products
+        await Product.deleteMany();
+
+        // Patch products: ensure images/colors are present and valid
+        const productsToSeed = mockProducts.map(product => {
+            let fixed = { ...product };
+            // Fix images
+            if (!Array.isArray(fixed.images) || fixed.images.length === 0) {
+                if (fixed.imageUrl) {
+                    fixed.images = [fixed.imageUrl];
+                } else {
+                    fixed.images = ['https://via.placeholder.com/400x600?text=No+Image'];
+                }
+            }
+            // Fix colors
+            if (!Array.isArray(fixed.colors) || fixed.colors.length === 0) {
+                fixed.colors = ['Multi'];
+            }
+            // Add SKU if missing
+            if (!fixed.sku) {
+                fixed.sku = `${fixed.title.substring(0, 3).toUpperCase()}-${Math.floor(Math.random() * 10000)}`;
+            }
+            return fixed;
+        });
+
+        // Insert products
+        const seededProducts = await Product.insertMany(productsToSeed);
+
+        res.status(200).json({
+            success: true,
+            message: 'Products seeded successfully',
+            count: seededProducts.length
+        });
+    } catch (error) {
+        return next(new ErrorResponse('Error seeding products', 500));
+    }
 }); 

@@ -7,7 +7,8 @@ const {
     deleteProduct,
     getProductSummary,
     getProductAnalytics,
-    uploadProductImage
+    uploadProductImage,
+    seedProducts
 } = require('../controllers/productController');
 const Product = require('../models/Product');
 
@@ -21,6 +22,9 @@ router.get('/analytics', protect, authorize('admin'), getProductAnalytics);
 
 // Image upload route
 router.post('/upload', protect, authorize('admin'), uploadProductImage);
+
+// Seed products route (admin only)
+router.post('/seed', protect, authorize('admin'), seedProducts);
 
 router
     .route('/')
