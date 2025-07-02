@@ -1,51 +1,40 @@
 const mongoose = require('mongoose');
-const Product = require('./models/Product');
-const mockProducts = require('./mockProducts');
 const dotenv = require('dotenv');
+const colors = require('colors');
+const mockProducts = require('./mockProducts');
+const Product = require('./models/Product');
 
 // Load env vars
 dotenv.config({ path: './config/config.env' });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('MongoDB Connected...'))
-    .catch(err => console.error('MongoDB Connection Error:', err));
-
-// Seed Products
-const seedProducts = async () => {
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(async () => {
+    console.log('MongoDB Connected...'.cyan.underline.bold);
+    
     try {
+        // Delete existing products
         await Product.deleteMany();
-        console.log('Deleted existing products');
+        console.log('Existing products deleted...'.red);
 
-        // Patch products: ensure images/colors are present and valid
-        const productsToSeed = mockProducts.map(product => {
-            let fixed = { ...product };
-            // Fix images
-            if (!Array.isArray(fixed.images) || fixed.images.length === 0) {
-                if (fixed.imageUrl) {
-                    fixed.images = [fixed.imageUrl];
-                } else {
-                    fixed.images = ['https://via.placeholder.com/400x600?text=No+Image'];
-                }
-            }
-            // Fix colors
-            if (!Array.isArray(fixed.colors) || fixed.colors.length === 0) {
-                fixed.colors = ['Multi'];
-            }
-            // Add SKU if missing
-            if (!fixed.sku) {
-                fixed.sku = `${fixed.title.substring(0, 3).toUpperCase()}-${Math.floor(Math.random() * 10000)}`;
-            }
-            return fixed;
-        });
+        // Insert mock products
+        const products = await Product.insertMany(mockProducts);
+        console.log(`${products.length} products inserted...`.green);
 
-        await Product.insertMany(productsToSeed);
-        console.log('Products seeded successfully');
+        // Log the first product ID for testing
+        if (products.length > 0) {
+            console.log(`\nTest product ID: ${products[0]._id}`.yellow);
+            console.log(`\nUse this URL to test: http://localhost:5001/kurtis-ecommerce-2025/frontend/product.html?id=${products[0]._id}`.cyan);
+        }
+
         process.exit(0);
     } catch (error) {
-        console.error('Error seeding products:', error);
+        console.error('Error:', error);
         process.exit(1);
     }
-};
-
-seedProducts(); 
+}).catch(err => {
+    console.error('Error connecting to MongoDB:', err);
+    process.exit(1);
+}); 

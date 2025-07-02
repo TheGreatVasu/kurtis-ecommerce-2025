@@ -6,11 +6,12 @@ module.exports = [
     category: 'Kurtis',
     sizes: ['S', 'M', 'L', 'XL'],
     imageUrl: 'https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101A/Grey/15620258_1.jpg?updatedAt=1750101584111',
+    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101A/Grey/15620258_1.jpg?updatedAt=1750101584111'],
     stock: 10,
     rating: 4.5,
     reviews: 100,
     badge: 'Best Seller',
-    colors: ['Grey'],
+    colors: ['Grey', 'Black']
  },
   {
     title: 'Designer Embroidered Party Wear',
@@ -19,9 +20,10 @@ module.exports = [
     category: 'Kurtis',
     sizes: ['S', 'M', 'L'],
     imageUrl: 'https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101K/Grey/15312882_2.jpg?updatedAt=1750101577490',
+    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101K/Grey/15312882_2.jpg?updatedAt=1750101577490'],
     stock: 8,
     badge: 'Best Seller',
-    colors: ['Grey'],
+    colors: ['Grey', 'Navy Blue']
  },
   {
     title: 'Casual Daily Wear Cotton Kurti',
@@ -30,8 +32,9 @@ module.exports = [
     category: 'Kurtis',
     sizes: ['S', 'M', 'L', 'XL'],
     imageUrl: 'https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101B/Grey/15620259_2.jpg?updatedAt=1750101581287',
+    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101B/Grey/15620259_2.jpg?updatedAt=1750101581287'],
     stock: 15,
-    colors: ['Grey'],
+    colors: ['Grey', 'Maroon']
   },
   {
     title: 'Designer Silk Blend Party Wear',
@@ -40,8 +43,9 @@ module.exports = [
     category: 'Kurtis',
     sizes: ['M', 'L', 'XL'],
     imageUrl: 'https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101C/Grey/15620260_2.jpg?updatedAt=1750101579057',
+    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101C/Grey/15620260_2.jpg?updatedAt=1750101579057'],
     stock: 12,
-    colors: ['Grey'],
+    colors: ['Grey', 'Green']
   },
   {
     title: 'Bollywood Style Party Wear',
@@ -50,8 +54,9 @@ module.exports = [
     category: 'Kurtis',
     sizes: ['S', 'M', 'L', 'XL'],
     imageUrl: 'https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-113K/Grey/15312997_3.jpg?updatedAt=1750101546778',
+    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-113K/Grey/15312997_3.jpg?updatedAt=1750101546778'],
     stock: 9,
-    colors: ['Grey'],
+    colors: ['Grey', 'Red']
   },
   {
     title: 'Lightweight Cotton Blend Kurti',

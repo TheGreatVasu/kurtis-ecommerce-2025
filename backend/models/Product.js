@@ -47,12 +47,8 @@ const ProductSchema = new mongoose.Schema({
     },
     images: {
         type: [String],
-        required: [true, 'Please add at least one image'],
-        validate: {
-            validator: function(v) {
-                return v.length > 0 && v.length <= 5;
-            },
-            message: 'Product must have between 1 and 5 images'
+        default: function() {
+            return [this.imageUrl];
         }
     },
     sizes: {
@@ -63,10 +59,10 @@ const ProductSchema = new mongoose.Schema({
     },
     colors: {
         type: [String],
-        required: [true, 'Please add available colors'],
+        default: ['Multi'],
         validate: {
             validator: function(v) {
-                return v.length > 0;
+                return Array.isArray(v) && v.length > 0;
             },
             message: 'Product must have at least one color'
         }
@@ -88,8 +84,10 @@ const ProductSchema = new mongoose.Schema({
     },
     sku: {
         type: String,
-        unique: true,
-        sparse: true
+        default: function() {
+            const randomNum = Math.floor(Math.random() * 10000);
+            return `${this.title.substring(0, 3).toUpperCase()}-${randomNum}`;
+        }
     }
 }, {
     timestamps: true,
@@ -97,11 +95,15 @@ const ProductSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
-// Create SKU before saving if not exists
+// Create SKU and set defaults before saving
 ProductSchema.pre('save', async function(next) {
-    if (!this.sku) {
-        const randomNum = Math.floor(Math.random() * 10000);
-        this.sku = `${this.title.substring(0, 3).toUpperCase()}-${randomNum}`;
+    // Set images array if not provided
+    if (!this.images || this.images.length === 0) {
+        this.images = [this.imageUrl];
+    }
+    // Set default color if not provided
+    if (!this.colors || this.colors.length === 0) {
+        this.colors = ['Multi'];
     }
     next();
 });

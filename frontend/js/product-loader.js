@@ -3,7 +3,6 @@ import config from './config.js';
 // Function to load top selling products
 export async function loadTopSellingProducts() {
     const container = document.getElementById('topSellingProducts');
-    const loadingSpinner = document.getElementById('loadingSpinner');
 
     try {
         const response = await fetch(`${config.API_URL}/products?limit=4&sort=rating`);
@@ -11,15 +10,13 @@ export async function loadTopSellingProducts() {
 
         if (data.success && data.data.length > 0) {
             const productsHtml = data.data.map(product => `
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <div class="product-card card h-100">
-                        ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                        <img src="${product.imageUrl}" class="card-img-top" alt="${product.title}">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">${product.title}</h5>
-                            <p class="card-text text-primary">₹${product.price.toFixed(2)}</p>
-                            <a href="product.html?id=${product._id}" class="btn btn-primary mt-auto">View Details</a>
-                        </div>
+                <div class="product-card card h-100">
+                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                    <img src="${config.getProductImageUrl(product.imageUrl)}" class="card-img-top" alt="${product.title}">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">${product.title}</h5>
+                        <p class="card-text text-primary">₹${product.price.toFixed(2)}</p>
+                        <a href="product.html?id=${product._id}" class="btn btn-primary mt-auto">View Details</a>
                     </div>
                 </div>
             `).join('');
@@ -30,10 +27,6 @@ export async function loadTopSellingProducts() {
     } catch (error) {
         console.error('Error loading products:', error);
         container.innerHTML = '<div class="col-12 text-center text-danger">Error loading products. Please try again later.</div>';
-    } finally {
-        if (loadingSpinner) {
-            loadingSpinner.style.display = 'none';
-        }
     }
 }
 
