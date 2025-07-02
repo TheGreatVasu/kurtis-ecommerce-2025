@@ -1,5 +1,6 @@
 // Removed import { fetchProduct, fetchSimilarProducts } from '../../data/mockData';
 // Ensure all product data is fetched from the backend API only.
+import config from './config.js';
 
 // Utility to update cart count badge in navbar
 function updateCartCountBadge() {
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     updateCartCountBadge(); // Show cart count on page load
 
-    fetch(`/api/products/${id}`)
+    fetch(`${config.API_URL}/products/${id}`)
         .then(res => res.json())
         .then(data => {
             if (spinner) spinner.style.display = "none";
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // --- Begin: Backend Image Only Gallery Logic ---
             let images = [];
             if (product.images && product.images.length > 0) {
-                images.push(product.images[0]);
+                images = product.images;
             } else if (product.imageUrl) {
                 images.push(product.imageUrl);
             }
@@ -183,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(err => {
             if (spinner) spinner.style.display = "none";
             if (productContainer) productContainer.innerHTML = "<div class='alert alert-danger'>Product not found or an error occurred.</div>";
+            console.error('Error fetching product:', err);
         });
 });
 

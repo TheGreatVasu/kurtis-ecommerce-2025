@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Kurtis E-commerce</title>
+    <title>Admin Panel - Aniyah</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body, html { height: 100%; }
+        body, html { height: 100%; margin: 0; }
         .admin-login-container {
             min-height: 100vh;
             display: flex;
@@ -139,11 +139,150 @@
             border-radius: 8px;
             padding: 0.7rem 1rem;
         }
-        @media (max-width: 600px) {
-            .admin-login-card { padding: 2rem 0.7rem; }
-        }
         .admin-panel {
             display: none;
+            min-height: 100vh;
+            background: #f8f6fa;
+        }
+        .admin-sidebar {
+            width: 280px;
+            background: #fff;
+            border-right: 1px solid #eee;
+            padding: 2rem 1rem;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+        .admin-sidebar .logo {
+            color: #ff4d6d;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .admin-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: none;
+            background: none;
+            color: #666;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .admin-nav-btn:hover {
+            background: #fff0f6;
+            color: #ff4d6d;
+        }
+        .admin-nav-btn.active {
+            background: #ff4d6d;
+            color: #fff;
+        }
+        .admin-main {
+            margin-left: 280px;
+            padding: 2rem;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+        .admin-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            background: #ff4d6d;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        .admin-content {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-box {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+        .admin-toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #333;
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            animation: slideIn 0.3s ease;
+        }
+        .admin-toast-success {
+            background: #4caf50;
+        }
+        .admin-toast-error {
+            background: #f44336;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 1rem;
+            }
+            .admin-main {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            .admin-login-card {
+                padding: 2rem 1rem;
+            }
         }
     </style>
 </head>
@@ -152,7 +291,7 @@
     <div class="admin-login-container" id="loginContainer">
         <div class="admin-login-card">
             <div class="admin-login-logo"><i class="fa-solid fa-user-shield"></i></div>
-            <div class="admin-login-title">Kurtis Admin</div>
+            <div class="admin-login-title">Aniyah Admin</div>
             <div class="admin-login-subtitle">Sign in to your admin dashboard</div>
             <div class="admin-login-divider"></div>
             <form class="admin-login-form" id="loginForm">
@@ -173,7 +312,7 @@
     <!-- Admin Panel Container -->
     <div class="admin-panel" id="adminPanel">
         <aside class="admin-sidebar">
-            <div class="logo">Kurtis Admin</div>
+            <div class="logo">Aniyah Admin</div>
             <nav class="admin-nav" id="adminNav">
                 <button class="admin-nav-btn" data-tab="dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</button>
                 <button class="admin-nav-btn" data-tab="products"><i class="fa-solid fa-box"></i> Products</button>
@@ -192,20 +331,10 @@
             </header>
             <section class="admin-content" id="adminContent">
                 <!-- Content rendered by JS -->
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Product Management</h5>
-                                <button class="btn btn-primary" onclick="location.href='product-form.html'">Add New Product</button>
-                                <button class="btn btn-warning" id="seedProductsBtn">Seed Products</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </section>
         </main>
     </div>
-    <script src="js/admin.js"></script>
+
+    <script type="module" src="js/admin.js"></script>
 </body>
 </html> 

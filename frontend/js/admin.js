@@ -1,6 +1,6 @@
 // Modern Admin Panel JS
 import config from './config.js';
-const API = 'http://localhost:5001/api';
+
 const adminContent = document.getElementById('adminContent');
 const adminNav = document.getElementById('adminNav');
 const adminNameSpan = document.getElementById('adminName');
@@ -78,7 +78,7 @@ loginForm.onsubmit = async (e) => {
   submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Logging in...';
   
   try {
-    const res = await fetch(`${API}/auth/admin-login`, {
+    const res = await fetch(`${config.API_URL}/auth/admin-login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
@@ -457,19 +457,31 @@ async function deleteUser(id) {
   }
 }
 
-// API helper
+// API helper function
 async function api(endpoint, method = 'GET', body = null) {
-  const opts = {
-    method,
-    headers: { 'Authorization': `Bearer ${adminToken}`, 'Content-Type': 'application/json' }
-  };
-  if (body) opts.body = JSON.stringify(body);
-  const res = await fetch(`${API}${endpoint.startsWith('/') ? endpoint : '/' + endpoint}`, opts);
-  if (res.status === 401) {
-    showLogin();
-    throw new Error('Unauthorized');
+  try {
+    const options = {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${adminToken}`
+      }
+    };
+    if (body) options.body = JSON.stringify(body);
+    
+    const response = await fetch(`${config.API_URL}${endpoint}`, options);
+    const data = await response.json();
+    
+    if (!data.success && data.error === 'Unauthorized') {
+      showLogin();
+      throw new Error('Unauthorized');
+    }
+    
+    return data;
+  } catch (err) {
+    console.error(`API Error (${endpoint}):`, err);
+    throw err;
   }
-  return await res.json();
 }
 
 // Toast styles and modal styles
