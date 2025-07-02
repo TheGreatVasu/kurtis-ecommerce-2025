@@ -11,8 +11,7 @@ module.exports = [
     reviews: 100,
     badge: 'Best Seller',
     colors: ['Grey'],
-    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101A/Grey/15620258_1.jpg?updatedAt=1750101584111']
-  },
+ },
   {
     title: 'Designer Embroidered Party Wear',
     description: 'Stunning designer kurti with intricate embroidery work. Perfect for special occasions and parties.',
@@ -23,8 +22,7 @@ module.exports = [
     stock: 8,
     badge: 'Best Seller',
     colors: ['Grey'],
-    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101K/Grey/15312882_2.jpg?updatedAt=1750101577490']
-  },
+ },
   {
     title: 'Casual Daily Wear Cotton Kurti',
     description: 'Comfortable and stylish casual kurti for daily wear. Made from soft cotton fabric with modern prints.',
@@ -34,7 +32,6 @@ module.exports = [
     imageUrl: 'https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101B/Grey/15620259_2.jpg?updatedAt=1750101581287',
     stock: 15,
     colors: ['Grey'],
-    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101B/Grey/15620259_2.jpg?updatedAt=1750101581287']
   },
   {
     title: 'Designer Silk Blend Party Wear',
@@ -45,7 +42,6 @@ module.exports = [
     imageUrl: 'https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101C/Grey/15620260_2.jpg?updatedAt=1750101579057',
     stock: 12,
     colors: ['Grey'],
-    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-101C/Grey/15620260_2.jpg?updatedAt=1750101579057']
   },
   {
     title: 'Bollywood Style Party Wear',
@@ -56,7 +52,6 @@ module.exports = [
     imageUrl: 'https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-113K/Grey/15312997_3.jpg?updatedAt=1750101546778',
     stock: 9,
     colors: ['Grey'],
-    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-113K/Grey/15312997_3.jpg?updatedAt=1750101546778']
   },
   {
     title: 'Lightweight Cotton Blend Kurti',
@@ -68,7 +63,6 @@ module.exports = [
     stock: 12,
     rating: 4.5,
     colors: ['Grey'],
-    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-178K/GREY/Untitled%20Session39225.JPG?updatedAt=1750101315203']
   },
   {
     title: 'Aesthetic Cotton Blend Kurti',
@@ -79,7 +73,6 @@ module.exports = [
     imageUrl: 'https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-196K/GREY/Untitled%20Session39060.JPG?updatedAt=1750101198247',
     stock: 7,
     colors: ['Grey'],
-    images: ['https://ik.imagekit.io/fyfu1zodv/Images-20250616T184643Z-1-001/Images/AN-196K/GREY/Untitled%20Session39060.JPG?updatedAt=1750101198247']
   },
   {
     title: 'Bollywood Style Party Wear',

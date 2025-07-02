@@ -12,46 +12,50 @@ function updateCartCountBadge() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+// Function to load product details
+async function loadProductDetails(id) {
     const spinner = document.getElementById("spinner");
     const productContainer = document.getElementById("productContainer");
+    const errorContainer = document.getElementById("errorContainer");
 
-    if (!id) {
-        if (spinner) spinner.style.display = "none";
-        if (productContainer) productContainer.innerHTML = "<div class='alert alert-danger'>Invalid product link.</div>";
-        return;
-    }
+    try {
+        if (!id) {
+            throw new Error('Invalid product ID');
+        }
 
-    updateCartCountBadge(); // Show cart count on page load
+        if (spinner) spinner.style.display = "block";
+        if (productContainer) productContainer.style.display = "none";
+        if (errorContainer) errorContainer.style.display = "none";
 
-    fetch(`${config.API_URL}/products/${id}`)
-        .then(res => res.json())
-        .then(data => {
-            if (spinner) spinner.style.display = "none";
-            if (!data.data) {
-                if (productContainer) productContainer.innerHTML = "<div class='alert alert-danger'>Product not found or an error occurred.</div>";
-                return;
-            }
-            const product = data.data;
-            // --- Begin: Backend Image Only Gallery Logic ---
-            let images = [];
-            if (product.images && product.images.length > 0) {
-                images = product.images;
-            } else if (product.imageUrl) {
-                images.push(product.imageUrl);
-            }
-            // --- End: Backend Image Only Gallery Logic ---
-            // Placeholder colors (for now)
-            const colors = ["#22223b", "#e44d6c", "#b8004c"];
-            // Placeholder tags (for now)
-            const tags = product.tags || ["fashion", "kurtis", "women"];
-            // Placeholder rating (for now)
-            const rating = product.rating || 4;
-            // Placeholder old price (for now)
-            const oldPrice = product.oldPrice || (product.price * 1.2).toFixed(0);
+        const response = await fetch(`${config.API_URL}/products/${id}`);
+        const data = await response.json();
 
+        if (!response.ok) {
+            throw new Error(data.message || 'Failed to fetch product details');
+        }
+
+        if (!data.data) {
+            throw new Error('Product not found');
+        }
+
+        const product = data.data;
+
+        // Handle images
+        let images = [];
+        if (product.images && product.images.length > 0) {
+            images = product.images;
+        } else if (product.imageUrl) {
+            images.push(product.imageUrl);
+        }
+
+        // Default values
+        const colors = product.colors || ["#22223b", "#e44d6c", "#b8004c"];
+        const tags = product.tags || ["fashion", "kurtis", "women"];
+        const rating = product.rating || 4;
+        const oldPrice = product.oldPrice || (product.price * 1.2).toFixed(0);
+
+        // Update product container HTML
+        if (productContainer) {
             productContainer.innerHTML = `
                 <div class="row g-5 align-items-start flex-wrap">
                     <div class="col-lg-6 mb-4 mb-lg-0">
@@ -110,82 +114,109 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             `;
 
-            // Image gallery logic
-            const mainImg = document.getElementById('mainProductImage');
-            document.querySelectorAll('.thumb-img').forEach(thumb => {
-                thumb.addEventListener('click', function() {
-                    document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('selected'));
-                    this.classList.add('selected');
-                    mainImg.src = this.src;
-                });
-            });
+            // Initialize event handlers
+            initializeEventHandlers(product, images);
+        }
 
-            // Color selection logic (placeholder)
-            let selectedColor = colors[0];
-            document.querySelectorAll('.color-dot').forEach(dot => {
-                dot.addEventListener('click', function() {
-                    document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('selected'));
-                    this.classList.add('selected');
-                    selectedColor = this.getAttribute('data-color');
-                });
-            });
+        // Show product container and hide spinner
+        if (spinner) spinner.style.display = "none";
+        if (productContainer) productContainer.style.display = "block";
 
-            // Size selection logic
-            let selectedSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : null;
-            document.querySelectorAll('.size-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('btn-secondary'));
-                    this.classList.add('btn-secondary');
-                    selectedSize = this.getAttribute('data-size');
-                });
-            });
+    } catch (error) {
+        console.error('Error loading product:', error);
+        if (spinner) spinner.style.display = "none";
+        if (productContainer) productContainer.style.display = "none";
+        if (errorContainer) {
+            errorContainer.style.display = "block";
+            errorContainer.innerHTML = `<div class="alert alert-danger">${error.message || 'Failed to load product details. Please try again later.'}</div>`;
+        }
+    }
+}
 
-            // Quantity logic
-            const qtyInput = document.getElementById('qtyInput');
-            document.getElementById('decreaseQty').addEventListener('click', () => {
-                let val = parseInt(qtyInput.value);
-                if (val > 1) qtyInput.value = val - 1;
-            });
-            document.getElementById('increaseQty').addEventListener('click', () => {
-                let val = parseInt(qtyInput.value);
-                if (val < 10) qtyInput.value = val + 1;
-            });
-
-            // Add to Cart functionality
-            const addToCartBtn = document.getElementById("addToCartBtn");
-            if (addToCartBtn) {
-                addToCartBtn.addEventListener("click", function() {
-                    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-                    const quantity = parseInt(qtyInput.value) || 1;
-                    const cartItem = {
-                        _id: product._id,
-                        title: product.title,
-                        price: product.price,
-                        imageUrl: images[0],
-                        quantity: quantity,
-                        size: selectedSize,
-                        color: selectedColor
-                    };
-                    const existing = cart.find(item => item._id === product._id && item.size === selectedSize && item.color === selectedColor);
-                    if (existing) {
-                        existing.quantity += quantity;
-                    } else {
-                        cart.push(cartItem);
-                    }
-                    localStorage.setItem("cart", JSON.stringify(cart));
-                    addToCartBtn.textContent = "Added!";
-                    updateCartCountBadge();
-                    setTimeout(() => {
-                        addToCartBtn.innerHTML = "<i class='bi bi-cart-plus'></i> ADD TO CART";
-                    }, 1500);
-                });
-            }
-        })
-        .catch(err => {
-            if (spinner) spinner.style.display = "none";
-            if (productContainer) productContainer.innerHTML = "<div class='alert alert-danger'>Product not found or an error occurred.</div>";
-            console.error('Error fetching product:', err);
+// Function to initialize event handlers
+function initializeEventHandlers(product, images) {
+    // Image gallery logic
+    const mainImg = document.getElementById('mainProductImage');
+    document.querySelectorAll('.thumb-img').forEach(thumb => {
+        thumb.addEventListener('click', function() {
+            document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('selected'));
+            this.classList.add('selected');
+            mainImg.src = this.src;
         });
+    });
+
+    // Color selection logic
+    let selectedColor = product.colors ? product.colors[0] : "#22223b";
+    document.querySelectorAll('.color-dot').forEach(dot => {
+        dot.addEventListener('click', function() {
+            document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('selected'));
+            this.classList.add('selected');
+            selectedColor = this.getAttribute('data-color');
+        });
+    });
+
+    // Size selection logic
+    let selectedSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : null;
+    document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('btn-secondary'));
+            this.classList.add('btn-secondary');
+            selectedSize = this.getAttribute('data-size');
+        });
+    });
+
+    // Quantity logic
+    const qtyInput = document.getElementById('qtyInput');
+    document.getElementById('decreaseQty')?.addEventListener('click', () => {
+        let val = parseInt(qtyInput.value);
+        if (val > 1) qtyInput.value = val - 1;
+    });
+    document.getElementById('increaseQty')?.addEventListener('click', () => {
+        let val = parseInt(qtyInput.value);
+        if (val < 10) qtyInput.value = val + 1;
+    });
+
+    // Add to Cart functionality
+    const addToCartBtn = document.getElementById("addToCartBtn");
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener("click", function() {
+            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            const quantity = parseInt(qtyInput.value) || 1;
+            const cartItem = {
+                _id: product._id,
+                title: product.title,
+                price: product.price,
+                imageUrl: images[0],
+                quantity: quantity,
+                size: selectedSize,
+                color: selectedColor
+            };
+            const existing = cart.find(item => 
+                item._id === product._id && 
+                item.size === selectedSize && 
+                item.color === selectedColor
+            );
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                cart.push(cartItem);
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            addToCartBtn.textContent = "Added!";
+            updateCartCountBadge();
+            setTimeout(() => {
+                addToCartBtn.innerHTML = "<i class='bi bi-cart-plus'></i> ADD TO CART";
+            }, 1500);
+        });
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener("DOMContentLoaded", function() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    updateCartCountBadge();
+    loadProductDetails(id);
 });
 
 import config from './config.js';
